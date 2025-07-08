@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">History</string>
+    <string name="title_activity_home_page_view">Home</string>
+    <string name="title_text_font_size">40</string>
+    <string name="normal_button_text_font_size">20</string>
+    <string name="normal_button_padding">10</string>
+</resources>
