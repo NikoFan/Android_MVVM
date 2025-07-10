@@ -1,5 +1,7 @@
 package com.example.projectwithmvvm.View
 
+import android.content.Context
+import android.content.Intent
 import android.media.Image
 import android.os.Bundle
 import androidx.compose.material3.Button
@@ -44,6 +46,8 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.with
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.platform.LocalContext
+import com.example.projectwithmvvm.Storage.DataClass
 
 
 class HomePageView : ComponentActivity() {
@@ -69,7 +73,8 @@ class HomePageView : ComponentActivity() {
         )
         {
             CreateHomePageDesign(
-                viewModel = homePageViewModel
+                viewModel = homePageViewModel,
+                context = LocalContext.current
             )
         }
 
@@ -87,7 +92,8 @@ class HomePageView : ComponentActivity() {
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun CreateHomePageDesign(
-    viewModel: HomePageVM
+    viewModel: HomePageVM,
+    context: Context
 ) {
     var activeCountryIndex by remember() { mutableStateOf(0) }
 
@@ -171,10 +177,16 @@ fun CreateHomePageDesign(
                     containerColor = colorResource(R.color.black)
                 ),
                 onClick = {
-                    if (activeCountryIndex + 1 != viewModel.getCountOfLanguages)
-                        activeCountryIndex++
-                    else
-                        activeCountryIndex = 0
+                    // Запись выбранного ЯП
+                    DataClass.getSelectedLanguage = DataClass.getLanguageMap[activeCountryIndex]
+
+                    // Переход в главное окно
+                    context.startActivity(
+                        Intent(
+                            context,
+                            MainWindowView::class.java
+                        )
+                    )
                 }
             ) {
 
